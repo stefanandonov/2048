@@ -1,0 +1,18 @@
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\bin\Debug\2048.exe
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\bin\Debug\2048.pdb
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\_2048.Form1.resources
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\_2048.Properties.Resources.resources
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\2048.exe
+C:\Users\Stefan\AppData\Local\Temporary Projects\2048\obj\x86\Debug\2048.pdb
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\2048.exe
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\2048.pdb
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\bin\Debug\2048.exe
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\bin\Debug\2048.pdb
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\_2048.Form1.resources
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\GenerateResource.write.1.tlog
