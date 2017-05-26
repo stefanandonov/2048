@@ -24,8 +24,8 @@ namespace _2048
             InitializeComponent();
             matrix = new int [4][];
             filled = new bool[4][];
-            
 
+            this.Focus();
 
             for (int i=0;i<4;i++){
                 matrix[i]=new int [4];
@@ -37,6 +37,13 @@ namespace _2048
                 }
                     
             }
+            /*
+             * Test primeri za 4 tipa na dvizenja:
+             */
+            //matrix[1][0] = 4;
+            //matrix[1][1] = 2;
+            //matrix[1][2] = 2;
+            //matrix[1][3] = 2;
             this.BackColor = Color.FromArgb(253, 247, 237);
             this.lbTitle.ForeColor = Color.FromArgb(118, 114, 103);
             this.lbSubtitle.ForeColor = Color.FromArgb(118, 114, 103);
@@ -105,10 +112,24 @@ namespace _2048
             
         }
 
+        private void generateNumberAfterMove() {
+            Random rdm = new Random();
+            int x = rdm.Next(0, 4);
+            int y = rdm.Next(0, 4);
+            while (matrix[x][y] != 0) {
+                x = rdm.Next(0, 4);
+                y = rdm.Next(0, 4); 
+            }
+
+            matrix[x][y] = 2;
+
+            showNumbers();
+        }
+
         private void showNumbers() {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    if (matrix[i][j] != 0) {
+                    if (true) {
                         showNumber(i, j);
                     }
                 }
@@ -158,9 +179,150 @@ namespace _2048
             }
         }
 
+        private void toRight() {
+
+            for (int i = 0; i < 4; i++) { //pravi pomestuvanje na site broevi do desnata granica
+                for (int j = 2; j >=0 ; j--) {
+                    if (matrix[i][j] != 0) {
+                        for (int k = j+1; k < 4; k++)
+                        {
+                            if (matrix[i][k] == 0) { 
+                                matrix[i][k]=matrix[i][k-1];
+                                matrix[i][k-1]=0;                               
+                            }
+                        }
+                    }
+                    
+                }
+            }
+
+            for (int i = 0; i < 4; i++) { //proveruva za sumi 
+                for (int j = 2; j >= 0; j--) {
+                    if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j+1] != 0) {
+                        matrix[i][j + 1] += matrix[i][j];
+                        matrix[i][j] = 0;
+                        for (int k = j; k > 0; k--) {
+                            if (matrix[i][k] == 0) {
+                                matrix[i][k] = matrix[i][k - 1];
+                                matrix[i][k - 1] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            generateNumberAfterMove();   
+        }
+
+        private void toLeft() {
+            for (int i = 0; i < 4; i++) { //pomestuva se na levo
+                for (int j = 1; j < 4; j++) {
+                    if (matrix[i][j] != 0) {
+                        for (int k = j - 1; k >= 0; k--)
+                        {
+                            if (matrix[i][k] == 0)
+                            {
+                                matrix[i][k] = matrix[i][k + 1];
+                                matrix[i][k + 1] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < 4; i++) { //proveruva za sumi
+                for (int j = 1; j < 4; j++) {
+                    if (matrix[i][j]==matrix[i][j-1] && matrix[i][j-1]!=0 && matrix[i][j]!=0){
+                        matrix[i][j-1]+=matrix[i][j];
+                        matrix[i][j]=0;
+                        for (int k = j; k < 3; k++) {
+                            if (matrix[i][k] == 0) {
+                                matrix[i][k] = matrix[i][k + 1];
+                                matrix[i][k + 1] = 0;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            generateNumberAfterMove();  
+        }
+
+        private void toUp() { 
+            
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            label1.Text = e.KeyChar.ToString();
+        }
+
+        protected override bool  ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //capture up arrow key
+            if (keyData == Keys.Up)
+            {
+                
+                return true;
+            }
+            //capture down arrow key
+            if (keyData == Keys.Down)
+            {
+                MessageBox.Show("You pressed Down arrow key");
+                return true;
+            }
+            //capture left arrow key
+            if (keyData == Keys.Left)
+            {
+                //label1.Text = "KEY.LEFT";
+                toLeft();
+                showNumbers();
+                return true;
+            }
+            //capture right arrow key
+            if (keyData == Keys.Right)
+            {
+                //label1.Text = "KEY.RIGHT";
+                toRight();
+                //showNumbers();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            label1.Text = e.KeyValue.ToString();
+            if (e.KeyCode == Keys.Delete) {
+                toRight();
+                //label1.Text = "True";
+                showNumbers();
+            }
+                
+            
+        }
+
+        private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                    toRight();
+                    break;
+                case Keys.Up:
+                    break;
+                   
+            }
+
+        }
+
+       
+
+        
     }
 }

@@ -48,6 +48,7 @@
             this.label02 = new System.Windows.Forms.Label();
             this.label01 = new System.Windows.Forms.Label();
             this.label00 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -281,20 +282,34 @@
             this.label00.TabIndex = 5;
             this.label00.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(74, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "False";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(484, 662);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.lbSubtitle);
             this.Controls.Add(this.lbTitle);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "2048 Game";
             this.TransparencyKey = System.Drawing.Color.White;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Form1_PreviewKeyDown);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -323,6 +338,7 @@
         private System.Windows.Forms.Label label02;
         private System.Windows.Forms.Label label01;
         private System.Windows.Forms.Label label00;
+        private System.Windows.Forms.Label label1;
     }
 }
 
