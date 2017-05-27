@@ -14,7 +14,7 @@ namespace _2048
         public int[][] matrix { set; get; }
         public bool[][] filled { set; get; }
         public List<Control> controls = new List<Control>();
-
+        public int points;
         
 
         
@@ -24,6 +24,7 @@ namespace _2048
             InitializeComponent();
             matrix = new int [4][];
             filled = new bool[4][];
+            points = 0;
 
             this.Focus();
 
@@ -50,7 +51,10 @@ namespace _2048
             this.btnNewGame.ForeColor = Color.White;
             this.btnNewGame.BackColor = Color.FromArgb(118, 114, 103);
             panel1.BackColor = Color.FromArgb(118, 114, 103);
-            label01.BackColor = Color.FromArgb(205, 193, 179);
+            //label01.BackColor = Color.FromArgb(205, 193, 179);
+            lbPoints.BackColor = Color.FromArgb(118, 114, 103);
+            lbPoints.ForeColor = Color.White;
+            lbPoints.Text = points.ToString();
 
             //label00.Text = this.Controls.Count.ToString();
             //label01.Text = this.Controls.ToString();
@@ -136,46 +140,99 @@ namespace _2048
             }
         }
 
+        private void updatePoints() {
+            lbPoints.Text = points.ToString();
+        }
+
         private void showNumber(int i, int j) {
-            if (i == 0) { 
-                if (j==0) 
-                    label00.Text = matrix[i][j].ToString();
+            int x = matrix[i][j];
+            if (i == 0) {
+                if (j == 0)
+                    if (x != 0)
+                        label00.Text = x.ToString();
+                    else
+                        label00.Text = "";
                 else if (j == 1)
-                    label01.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label01.Text = x.ToString();
+                    else
+                        label01.Text = "";
                 else if (j == 2)
-                    label02.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label02.Text = x.ToString();
+                    else
+                        label02.Text = "";
                 else if (j == 3)
-                    label03.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label03.Text = x.ToString();
+                    else
+                        label03.Text = "";
             }
             else if (i == 1) {
                 if (j == 0)
-                    label10.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label10.Text = x.ToString();
+                    else
+                        label10.Text = "";
                 else if (j == 1)
-                    label11.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label11.Text = x.ToString();
+                    else
+                        label11.Text = "";
                 else if (j == 2)
-                    label12.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label12.Text = x.ToString();
+                    else
+                        label12.Text = "";
                 else if (j == 3)
-                    label13.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label13.Text = x.ToString();
+                    else
+                        label13.Text = "";
             }
             else if (i == 2) {
                 if (j == 0)
-                    label20.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label20.Text = x.ToString();
+                    else
+                        label20.Text = "";
                 else if (j == 1)
-                    label21.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label21.Text = x.ToString();
+                    else
+                        label21.Text = "";
                 else if (j == 2)
-                    label22.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label22.Text = x.ToString();
+                    else
+                        label22.Text = "";
                 else if (j == 3)
-                    label23.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label23.Text = x.ToString();
+                    else
+                        label23.Text = "";
             }
             else if (i == 3) {
                 if (j == 0)
-                    label30.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label30.Text = x.ToString();
+                    else
+                        label30.Text = "";
                 else if (j == 1)
-                    label31.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label31.Text = x.ToString();
+                    else
+                        label31.Text = "";
                 else if (j == 2)
-                    label32.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label32.Text = x.ToString();
+                    else
+                        label32.Text = "";
                 else if (j == 3)
-                    label33.Text = matrix[i][j].ToString();
+                    if (x != 0)
+                        label33.Text = x.ToString();
+                    else
+                        label33.Text = "";
             }
         }
 
@@ -200,6 +257,7 @@ namespace _2048
                 for (int j = 2; j >= 0; j--) {
                     if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j+1] != 0) {
                         matrix[i][j + 1] += matrix[i][j];
+                        points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
                         for (int k = j; k > 0; k--) {
                             if (matrix[i][k] == 0) {
@@ -210,7 +268,7 @@ namespace _2048
                     }
                 }
             }
-
+            updatePoints();
             generateNumberAfterMove();   
         }
 
@@ -234,6 +292,7 @@ namespace _2048
                 for (int j = 1; j < 4; j++) {
                     if (matrix[i][j]==matrix[i][j-1] && matrix[i][j-1]!=0 && matrix[i][j]!=0){
                         matrix[i][j-1]+=matrix[i][j];
+                        points += (2 * matrix[i][j]);
                         matrix[i][j]=0;
                         for (int k = j; k < 3; k++) {
                             if (matrix[i][k] == 0) {
@@ -246,11 +305,77 @@ namespace _2048
                 }
             }
 
+
+            updatePoints();
             generateNumberAfterMove();  
         }
 
-        private void toUp() { 
-            
+        private void toUp() {
+            for (int j = 0; j < 4; j++) {
+                for (int i = 1; i < 4; i++) {
+                    if (matrix[i][j] != 0) {
+                        for (int k = i - 1; k >= 0; k--) 
+                        {
+                            if (matrix[k][j] == 0) {
+                                matrix[k][j] = matrix[k+1][j];
+                                matrix[k+1][j] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < 4; j++) {
+                for (int i = 1; i < 4; i++) {
+                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0) {
+                        matrix[i-1][j] += matrix[i][j];
+                        points += (2 * matrix[i][j]);
+                        matrix[i][j] = 0;
+                        for (int k = i; k < 3; k++) {
+                            if (matrix[k][j] == 0) {
+                                matrix[k][j] = matrix[k + 1][j];
+                                matrix[k + 1][j] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            updatePoints();
+            generateNumberAfterMove();
+        }
+
+        private void toDown() {
+            for (int j = 0; j < 4; j++) {
+                for (int i = 2; i >= 0; i--) {
+                    if (matrix[i][j] != 0) {
+                        for (int k = i + 1; k < 4; k++) {
+                            if (matrix[k][j] == 0) {
+                                matrix[k][j] = matrix[k-1][j];
+                                matrix[k - 1][j] = 0; 
+                            }
+                            
+                        }
+                    }
+                }
+            }
+
+            for (int j = 0; j < 4; j++) {
+                for (int i = 2; i >= 0; i--) {
+                    if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0) {
+                        matrix[i+1][j] += matrix[i][j];
+                        points += (2 * matrix[i][j]);
+                        matrix[i][j] = 0;
+                        for (int k = i; k > 0; k--) {
+                            if (matrix[k][j] == 0) {
+                                matrix[k][j] = matrix[k - 1][j];
+                                matrix[k - 1][j] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            updatePoints();
+            generateNumberAfterMove(); 
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -267,13 +392,14 @@ namespace _2048
             //capture up arrow key
             if (keyData == Keys.Up)
             {
-                
+                toUp();
                 return true;
             }
             //capture down arrow key
             if (keyData == Keys.Down)
             {
-                MessageBox.Show("You pressed Down arrow key");
+                label1.Text = "KEY.DOWN";
+                toDown();
                 return true;
             }
             //capture left arrow key
@@ -320,6 +446,8 @@ namespace _2048
             }
 
         }
+
+        
 
        
 
