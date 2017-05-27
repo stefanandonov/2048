@@ -44,7 +44,7 @@ namespace _2048
             //matrix[1][0] = 4;
             //matrix[1][1] = 2;
             //matrix[1][2] = 2;
-            //matrix[1][3] = 2;
+            matrix[1][3] = 128;
             this.BackColor = Color.FromArgb(253, 247, 237);
             this.lbTitle.ForeColor = Color.FromArgb(118, 114, 103);
             this.lbSubtitle.ForeColor = Color.FromArgb(118, 114, 103);
@@ -140,7 +140,29 @@ namespace _2048
             }
         }
 
-        private void updatePoints() {
+        private bool gameOver() {
+            bool flag = true;
+
+            for (int i = 1; i < 3; i++) {
+                for (int j = 1; j < 3; j++) {
+                    if (matrix[i][j] == matrix[i][j - 1] || matrix[i][j] == matrix[i][j + 1] || matrix[i][j] == matrix[i - 1][j]
+                        || matrix[i][j] == matrix[i + 1][j]) {
+
+                        flag = false;
+                        break;
+                        
+                    }
+
+                }
+                if (!flag)
+                    break;
+            }
+
+            return flag;
+        }
+
+        private void updatePoints()
+        {
             lbPoints.Text = points.ToString();
         }
 
@@ -172,6 +194,21 @@ namespace _2048
                 case 64:
                     lb.BackColor = Color.FromArgb(246, 93, 59);
                     lb.ForeColor = Color.White;
+                    break;
+                case 128:
+                    lb.BackColor = Color.FromArgb(236, 207, 113);
+                    lb.ForeColor = Color.White;
+                    lb.Font = new Font("Arial", 22, FontStyle.Bold);
+                    break;
+                case 256:
+                    lb.BackColor = Color.FromArgb(237, 204, 99);
+                    lb.ForeColor = Color.White;
+                    lb.Font = new Font("Arial", 22, FontStyle.Bold);
+                    break;
+                case 512:
+                    lb.BackColor = Color.FromArgb(237, 204, 99);
+                    lb.ForeColor = Color.White;
+                    lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 default:
                     break;
@@ -364,6 +401,12 @@ namespace _2048
 
         private void toRight() {
 
+            if (gameOver()) {
+                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes) {
+                    this.Close();
+                }
+            }
+
             for (int i = 0; i < 4; i++) { //pravi pomestuvanje na site broevi do desnata granica
                 for (int j = 2; j >=0 ; j--) {
                     if (matrix[i][j] != 0) {
@@ -508,10 +551,7 @@ namespace _2048
 
         }
 
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            label1.Text = e.KeyChar.ToString();
-        }
+        
 
         protected override bool  ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -524,14 +564,14 @@ namespace _2048
             //capture down arrow key
             if (keyData == Keys.Down)
             {
-                label1.Text = "KEY.DOWN";
+                
                 toDown();
                 return true;
             }
             //capture left arrow key
             if (keyData == Keys.Left)
             {
-                //label1.Text = "KEY.LEFT";
+                
                 toLeft();
                 showNumbers();
                 return true;
@@ -549,7 +589,7 @@ namespace _2048
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            label1.Text = e.KeyValue.ToString();
+           
             if (e.KeyCode == Keys.Delete) {
                 toRight();
                 //label1.Text = "True";
