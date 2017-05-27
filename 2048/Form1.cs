@@ -22,29 +22,13 @@ namespace _2048
         public Form1()
         {
             InitializeComponent();
-            matrix = new int [4][];
-            filled = new bool[4][];
-            points = 0;
-
-            this.Focus();
-
-            for (int i=0;i<4;i++){
-                matrix[i]=new int [4];
-                filled[i]=new bool[4];
-
-                for (int j=0;j<4;j++){
-                    matrix[i][j] = 0;
-                    filled[i][j] = false;
-                }
-                    
-            }
             /*
-             * Test primeri za 4 tipa na dvizenja:
-             */
+            * Test primeri za 4 tipa na dvizenja:
+            */
             //matrix[1][0] = 4;
             //matrix[1][1] = 2;
             //matrix[1][2] = 2;
-            matrix[1][3] = 128;
+            // matrix[1][3] = 128;
             this.BackColor = Color.FromArgb(253, 247, 237);
             this.lbTitle.ForeColor = Color.FromArgb(118, 114, 103);
             this.lbSubtitle.ForeColor = Color.FromArgb(118, 114, 103);
@@ -59,25 +43,51 @@ namespace _2048
             //label00.Text = this.Controls.Count.ToString();
             //label01.Text = this.Controls.ToString();
             //label01.Text = matrix[0][1].ToString();
+            newGame();
+            
+            
+        }
+        public void newGame()
+        {
+            matrix = new int[4][];
+            filled = new bool[4][];
+            points = 0;
+
+            this.Focus();
+
+            for (int i = 0; i < 4; i++)
+            {
+                matrix[i] = new int[4];
+                filled[i] = new bool[4];
+
+                for (int j = 0; j < 4; j++)
+                {
+                    matrix[i][j] = 0;
+                    filled[i][j] = false;
+                }
+
+            }
+           
 
             List<Control> controls = new List<Control>();
 
-            foreach (Control c in this.Controls) {
+            foreach (Control c in this.Controls)
+            {
                 controls.AddRange(GetAllControls(c));
-                
+
             }
 
-           
 
-            foreach (Control c in controls) { 
+
+            foreach (Control c in controls)
+            {
                 if (c.Name.StartsWith("label"))
                     c.BackColor = Color.FromArgb(205, 193, 179);
             }
 
             generateStart();
             showNumbers();
-            
-            
+
         }
 
         public static IEnumerable<Control> GetAllControls(Control root)
@@ -143,20 +153,29 @@ namespace _2048
         private bool gameOver() {
             bool flag = true;
 
-            for (int i = 1; i < 3; i++) {
-                for (int j = 1; j < 3; j++) {
-                    if (matrix[i][j] == matrix[i][j - 1] || matrix[i][j] == matrix[i][j + 1] || matrix[i][j] == matrix[i - 1][j]
-                        || matrix[i][j] == matrix[i + 1][j]) {
-
-                        flag = false;
-                        break;
-                        
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if(matrix[i][j]==0)
+                        flag=false;
                     }
-
                 }
-                if (!flag)
-                    break;
+            if (flag)
+            {
+                for (int i = 0; i < 4; i++)
+                {                                //proveruva dali postojat mozni potezi
+                    for (int j = 2; j >= 0; j--)
+                    {
+                        if (matrix[i][j] == matrix[i][j + 1])
+                        {
+                            flag = false;
+                          
+                        }
+                    }
+                } 
             }
+
+              
+            
 
             return flag;
         }
@@ -176,7 +195,7 @@ namespace _2048
                     lb.ForeColor = Color.FromArgb(187, 173, 160);
                     break;
                 case 4:
-                    lb.BackColor = Color.FromArgb(205, 193, 180);
+                    lb.BackColor = Color.FromArgb(255,240 ,245 );
                     lb.ForeColor = Color.FromArgb(187, 173, 160);
                     break;
                 case 8: 
@@ -402,8 +421,8 @@ namespace _2048
         private void toRight() {
 
             if (gameOver()) {
-                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes) {
-                    this.Close();
+                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry) {
+                    newGame();
                 }
             }
 
@@ -611,6 +630,11 @@ namespace _2048
                    
             }
 
+        }
+
+        private void btnNewGame_Click(object sender, EventArgs e)
+        {
+            newGame();
         }
 
         
