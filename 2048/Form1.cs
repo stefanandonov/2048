@@ -499,8 +499,7 @@ namespace _2048
                 }
                 else
                     this.Close();
-            }
-            
+            } 
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!! ", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -543,8 +542,6 @@ namespace _2048
 
                 }
             }
-
-
             updatePoints();
             generateNumberAfterMove();  
         }
