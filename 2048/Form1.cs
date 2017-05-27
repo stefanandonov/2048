@@ -173,9 +173,24 @@ namespace _2048
                     }
                 } 
             }
-
-              
-            
+            return flag;
+        }
+        public bool youWon()
+        {
+            bool flag = false;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (matrix[i][j] == 2048)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag)
+                    break;
+            }
 
             return flag;
         }
@@ -423,8 +438,19 @@ namespace _2048
             if (gameOver()) {
                 if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry) {
                     newGame();
-                }
+                }else
+                   this.Close();
             }
+            if (youWon())
+            {
+                if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
+            
 
             for (int i = 0; i < 4; i++) { //pravi pomestuvanje na site broevi do desnata granica
                 for (int j = 2; j >=0 ; j--) {
@@ -461,6 +487,24 @@ namespace _2048
         }
 
         private void toLeft() {
+            if (gameOver())
+            {
+                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
+            if (youWon())
+            {
+                if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
             for (int i = 0; i < 4; i++) { //pomestuva se na levo
                 for (int j = 1; j < 4; j++) {
                     if (matrix[i][j] != 0) {
@@ -499,6 +543,24 @@ namespace _2048
         }
 
         private void toUp() {
+            if (gameOver())
+            {
+                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
+            if (youWon())
+            {
+                if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
             for (int j = 0; j < 4; j++) {
                 for (int i = 1; i < 4; i++) {
                     if (matrix[i][j] != 0) {
@@ -514,6 +576,24 @@ namespace _2048
             }
 
             for (int j = 0; j < 4; j++) {
+                if (gameOver())
+                {
+                    if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                    {
+                        newGame();
+                    }
+                    else
+                        this.Close();
+                }
+                if (youWon())
+                {
+                    if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                    {
+                        newGame();
+                    }
+                    else
+                        this.Close();
+                }
                 for (int i = 1; i < 4; i++) {
                     if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0) {
                         matrix[i-1][j] += matrix[i][j];
@@ -533,6 +613,24 @@ namespace _2048
         }
 
         private void toDown() {
+            if (gameOver())
+            {
+                if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
+            if (youWon())
+            {
+                if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
+                {
+                    newGame();
+                }
+                else
+                    this.Close();
+            }
             for (int j = 0; j < 4; j++) {
                 for (int i = 2; i >= 0; i--) {
                     if (matrix[i][j] != 0) {
@@ -548,6 +646,7 @@ namespace _2048
             }
 
             for (int j = 0; j < 4; j++) {
+                
                 for (int i = 2; i >= 0; i--) {
                     if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0) {
                         matrix[i+1][j] += matrix[i][j];
