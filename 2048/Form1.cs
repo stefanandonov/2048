@@ -15,43 +15,42 @@ namespace _2048
         public bool[][] filled { set; get; }
         public List<Control> controls = new List<Control>();
         public int points;
-        public List<int> allpoints; 
-        
+        public List<int> allpoints;
 
-        
+
 
         public Form1()
         {
             InitializeComponent();
-            
-
-            //label00.Text = this.Controls.Count.ToString();
-            //label01.Text = this.Controls.ToString();
-            //label01.Text = matrix[0][1].ToString();
             /*
-           * Test primeri za 4 tipa na dvizenja:
-           */
+            * Test primeri za 4 tipa na dvizenja:
+            */
             //matrix[1][0] = 4;
             //matrix[1][1] = 2;
             //matrix[1][2] = 2;
             // matrix[1][3] = 128;
+            DoubleBuffered = true;
             this.BackColor = Color.FromArgb(253, 247, 237);
             this.lbTitle.ForeColor = Color.FromArgb(118, 114, 103);
             this.lbSubtitle.ForeColor = Color.FromArgb(118, 114, 103);
-            this.btnNewGame.ForeColor = Color.White;
+            this.btnNewGame.ForeColor = Color.FromArgb(254, 254, 254);
             this.btnNewGame.BackColor = Color.FromArgb(118, 114, 103);
             panel1.BackColor = Color.FromArgb(118, 114, 103);
             //label01.BackColor = Color.FromArgb(205, 193, 179);
             lbPoints.BackColor = Color.FromArgb(118, 114, 103);
             lbPoints.ForeColor = Color.FromArgb(254, 254, 254);
             lbPoints.Text = points.ToString();
+            lbBest.ForeColor = Color.FromArgb(254, 254, 254);
+            lbBest.BackColor = Color.FromArgb(118, 114, 103);
+            allpoints = new List<int>();
+            allpoints.Add(0);
+
             newGame();
-            
-            
+
+
         }
         public void newGame()
         {
-           
             allpoints.Add(points);
             lbBest.Text = String.Format("Best:\n{0}", allpoints.Max());
 
@@ -100,7 +99,6 @@ namespace _2048
             updatePoints();
             showNumbers();
 
-
         }
 
         public static IEnumerable<Control> GetAllControls(Control root)
@@ -118,34 +116,40 @@ namespace _2048
             }
         }
 
-        private void generateStart() { //funkcija koja generira 2 broja (2 ili 4) na 2 razlicni pozicii
+        private void generateStart()
+        { //funkcija koja generira 2 broja (2 ili 4) na 2 razlicni pozicii
             Random rdm = new Random();
             int i = 0;
-            while (i < 2) {
+            while (i < 2)
+            {
                 int x = rdm.Next(0, 4);
                 int y = rdm.Next(0, 4);
-                while (filled[x][y] == true) {
+                while (filled[x][y] == true)
+                {
                     x = rdm.Next(0, 4);
                     y = rdm.Next(0, 4);
                 }
-                int nmbr=rdm.Next(2,5);
-                while (nmbr == 3) {
+                int nmbr = rdm.Next(2, 5);
+                while (nmbr == 3)
+                {
                     nmbr = rdm.Next(2, 5);
                 }
                 matrix[x][y] = nmbr;
                 filled[x][y] = true;
                 ++i;
-            }          
-            
+            }
+
         }
 
-        private void generateNumberAfterMove() {
+        private void generateNumberAfterMove()
+        {
             Random rdm = new Random();
             int x = rdm.Next(0, 4);
             int y = rdm.Next(0, 4);
-            while (matrix[x][y] != 0) {
+            while (matrix[x][y] != 0)
+            {
                 x = rdm.Next(0, 4);
-                y = rdm.Next(0, 4); 
+                y = rdm.Next(0, 4);
             }
 
             matrix[x][y] = 2;
@@ -153,34 +157,39 @@ namespace _2048
             showNumbers();
         }
 
-        private void showNumbers() {
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (true) {
+        private void showNumbers()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (true)
+                    {
                         showNumber(i, j);
                     }
                 }
             }
         }
 
-        private bool gameOver() {
+        private bool gameOver()
+        {
             bool flag = true;
-                for (int i = 0; i < 4; i++)
-                {                                //proveruva dali site plocki se ispolneti
-                    for (int j = 0; j <4; j++)
+            for (int i = 0; i < 4; i++)
+            {                                //proveruva dali site plocki se ispolneti
+                for (int j = 0; j < 4; j++)
+                {
+                    if (matrix[i][j] == 0)
                     {
-                        if (matrix[i][j] == 0)
-                        {
-                            flag = false;
-                            return flag;
-                        }
+                        flag = false;
+                        return flag;
                     }
                 }
-                if (flag) //ako e ispolneta celata tabla 
-                {
-                    if (!checkMoves())
-                        flag = false;
-                }
+            }
+            if (flag) //ako e ispolneta celata tabla 
+            {
+                if (!checkMoves())
+                    flag = false;
+            }
 
             return flag;
         }
@@ -206,13 +215,16 @@ namespace _2048
 
         private void updatePoints()
         {
-            lbPoints.Text = points.ToString();
+            lbPoints.Text = String.Format("Score\n{0}", points);
         }
-        public bool checkMoves(){
+        public bool checkMoves()
+        {
             bool flag = true;
-            for (int i = 0; i < 4; i++) { //proveruva za desno 
-                for (int j = 2; j >= 0; j--) {
-                    if (matrix[i][j] == matrix[i][j + 1])
+            for (int i = 0; i < 4; i++)
+            { //proveruva za desno 
+                for (int j = 2; j >= 0; j--)
+                {
+                    if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j + 1] != 0)
                     {
                         flag = false;
                     }
@@ -222,7 +234,7 @@ namespace _2048
             { //proveruva za levo
                 for (int j = 1; j < 4; j++)
                 {
-                    if (matrix[i][j] == matrix[i][j - 1])
+                    if (matrix[i][j] == matrix[i][j - 1] && matrix[i][j - 1] != 0 && matrix[i][j] != 0)
                     {
                         flag = false;
                     }
@@ -233,7 +245,7 @@ namespace _2048
 
                 for (int i = 1; i < 4; i++)
                 {
-                    if (matrix[i][j] == matrix[i - 1][j])
+                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0)
                     {
                         flag = false;
                     }
@@ -244,17 +256,19 @@ namespace _2048
 
                 for (int i = 2; i >= 0; i--)
                 {
-                    if (matrix[i][j] == matrix[i + 1][j])
+                    if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0)
                     {
                         flag = false;
                     }
                 }
             }
-          return flag;
+            return flag;
         }
 
-        private void showColor(Label lb, int number) {
-            switch (number) { 
+        private void showColor(Label lb, int number)
+        {
+            switch (number)
+            {
                 case 0:
                     lb.BackColor = Color.FromArgb(205, 193, 179);
                     break;
@@ -263,59 +277,62 @@ namespace _2048
                     lb.ForeColor = Color.FromArgb(187, 173, 160);
                     break;
                 case 4:
-                    lb.BackColor = Color.FromArgb(255,240 ,245 );
+                    lb.BackColor = Color.FromArgb(255, 240, 245);
                     lb.ForeColor = Color.FromArgb(187, 173, 160);
                     break;
-                case 8: 
+                case 8:
                     lb.BackColor = Color.FromArgb(242, 177, 121);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);
+                    lb.ForeColor = Color.FromArgb(254, 254, 254); ;
                     break;
                 case 16:
                     lb.BackColor = Color.FromArgb(245, 149, 101);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     break;
                 case 32:
                     lb.BackColor = Color.FromArgb(245, 124, 95);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     break;
                 case 64:
                     lb.BackColor = Color.FromArgb(246, 93, 59);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     break;
                 case 128:
                     lb.BackColor = Color.FromArgb(236, 207, 113);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 case 256:
-                    lb.BackColor = Color.FromArgb(237, 204, 99);
-                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
-                    lb.Font = new Font("Arial", 22, FontStyle.Bold);
-                    break;
-                case 512:
                     lb.BackColor = Color.FromArgb(237, 204, 99);
                     lb.ForeColor = Color.FromArgb(254, 254, 254);
                     lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 default:
+                    lb.BackColor = Color.FromArgb(237, 204, 99);
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
+                    lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
+
+                // break;
             }
         }
 
-        private void showNumber(int i, int j) {
+        private void showNumber(int i, int j)
+        {
             int x = matrix[i][j];
-            if (i == 0) {
+            if (i == 0)
+            {
                 if (j == 0)
                     if (x != 0)
                     {
                         label00.Text = x.ToString();
                         showColor(label00, x);
                     }
-                    else{
+                    else
+                    {
                         label00.Text = "";
                         showColor(label00, 0);
                     }
-                        
+
                 else if (j == 1)
                     if (x != 0)
                     {
@@ -328,25 +345,30 @@ namespace _2048
                         showColor(label01, 0);
                     }
                 else if (j == 2)
-                    if (x != 0){
+                    if (x != 0)
+                    {
                         label02.Text = x.ToString();
-                        showColor(label02,x);}
+                        showColor(label02, x);
+                    }
                     else
                     {
                         label02.Text = "";
                         showColor(label02, 0);
                     }
                 else if (j == 3)
-                    if (x != 0){
+                    if (x != 0)
+                    {
                         label03.Text = x.ToString();
-                        showColor(label03,x);}
+                        showColor(label03, x);
+                    }
                     else
                     {
                         label03.Text = "";
                         showColor(label03, 0);
                     }
             }
-            else if (i == 1) {
+            else if (i == 1)
+            {
                 if (j == 0)
                     if (x != 0)
                     {
@@ -388,11 +410,12 @@ namespace _2048
                     }
                     else
                     {
-                        label13.Text = "";
-                        showColor(label13, 0);
+                        label12.Text = "";
+                        showColor(label12, 0);
                     }
             }
-            else if (i == 2) {
+            else if (i == 2)
+            {
                 if (j == 0)
                     if (x != 0)
                     {
@@ -434,11 +457,12 @@ namespace _2048
                     }
                     else
                     {
-                        label23.Text =" ";
+                        label23.Text = " ";
                         showColor(label23, 0);
                     }
             }
-            else if (i == 3) {
+            else if (i == 3)
+            {
                 if (j == 0)
                     if (x != 0)
                     {
@@ -486,7 +510,10 @@ namespace _2048
             }
         }
 
-        private void toRight() {
+        private void toRight()
+        {
+
+            int checksum = 0;
             if (gameOver())
             {
                 if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -497,7 +524,7 @@ namespace _2048
                     this.Close();
 
             }
-           
+
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -507,28 +534,35 @@ namespace _2048
                 else
                     this.Close();
             }
-            
 
-            for (int i = 0; i < 4; i++) { //pravi pomestuvanje na site broevi do desnata granica
-                for (int j = 2; j >=0 ; j--) {
-                    if (matrix[i][j] != 0) {
-                        for (int k = j+1; k < 4; k++)
+
+            for (int i = 0; i < 4; i++)
+            { //pravi pomestuvanje na site broevi do desnata granica
+                for (int j = 2; j >= 0; j--)
+                {
+                    if (matrix[i][j] != 0)
+                    {
+                        for (int k = j + 1; k < 4; k++)
                         {
-                            if (matrix[i][k] == 0) { 
-                                matrix[i][k]=matrix[i][k-1];
-                                matrix[i][k-1]=0;                               
+                            if (matrix[i][k] == 0)
+                            {
+                                checksum++;
+                                matrix[i][k] = matrix[i][k - 1];
+                                matrix[i][k - 1] = 0;
                             }
                         }
                     }
-                    
+
                 }
             }
 
-            for (int i = 0; i < 4; i++) { //proveruva za sumi 
-                for (int j = 2; j >= 0; j--) {
+            for (int i = 0; i < 4; i++)
+            { //proveruva za sumi 
+                for (int j = 2; j >= 0; j--)
+                {
                     if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j + 1] != 0)
                     {
-                       
+                        checksum++;
                         matrix[i][j + 1] += matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
@@ -541,16 +575,22 @@ namespace _2048
                             }
                         }
                     }
-                    
+
                 }
             }
-            
-            
+
+
             updatePoints();
-            generateNumberAfterMove();   
+            if (checksum != 0)
+            {
+                generateNumberAfterMove();
+            }
+
         }
 
-        private void toLeft() {
+        private void toLeft()
+        {
+            int checksum = 0;
             if (gameOver())
             {
                 if (MessageBox.Show("  GAME OVER :( ", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -569,13 +609,17 @@ namespace _2048
                 else
                     this.Close();
             }
-            for (int i = 0; i < 4; i++) { //pomestuva se na levo
-                for (int j = 1; j < 4; j++) {
-                    if (matrix[i][j] != 0) {
+            for (int i = 0; i < 4; i++)
+            { //pomestuva se na levo
+                for (int j = 1; j < 4; j++)
+                {
+                    if (matrix[i][j] != 0)
+                    {
                         for (int k = j - 1; k >= 0; k--)
                         {
                             if (matrix[i][k] == 0)
                             {
+                                checksum++;
                                 matrix[i][k] = matrix[i][k + 1];
                                 matrix[i][k + 1] = 0;
                             }
@@ -584,14 +628,21 @@ namespace _2048
                 }
             }
 
-            for (int i = 0; i < 4; i++) { //proveruva za sumi
-                for (int j = 1; j < 4; j++) {
-                    if (matrix[i][j]==matrix[i][j-1] && matrix[i][j-1]!=0 && matrix[i][j]!=0){
-                      
-                        matrix[i][j-1]+=matrix[i][j];
-                        matrix[i][j]=0;
-                        for (int k = j; k < 3; k++) {
-                            if (matrix[i][k] == 0) {
+            for (int i = 0; i < 4; i++)
+            { //proveruva za sumi
+                for (int j = 1; j < 4; j++)
+                {
+                    if (matrix[i][j] == matrix[i][j - 1] && matrix[i][j - 1] != 0 && matrix[i][j] != 0)
+                    {
+                        checksum++;
+                        matrix[i][j - 1] += matrix[i][j];
+                        points += (2 * matrix[i][j]);
+                        matrix[i][j] = 0;
+                        for (int k = j; k < 3; k++)
+                        {
+                            if (matrix[i][k] == 0)
+                            {
+
                                 matrix[i][k] = matrix[i][k + 1];
                                 matrix[i][k + 1] = 0;
                             }
@@ -599,13 +650,18 @@ namespace _2048
                     }
                 }
             }
-            
-           
+
+
             updatePoints();
-            generateNumberAfterMove();  
+            if (checksum != 0)
+            {
+                generateNumberAfterMove();
+            }
         }
 
-        private void toUp() {
+        private void toUp()
+        {
+            int checksum = 0;
             if (gameOver())
             {
                 if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -615,7 +671,7 @@ namespace _2048
                 else
                     this.Close();
             }
-         
+
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -625,45 +681,60 @@ namespace _2048
                 else
                     this.Close();
             }
-            for (int j = 0; j < 4; j++) {
-                for (int i = 1; i < 4; i++) {
-                    if (matrix[i][j] != 0) {
-                        for (int k = i - 1; k >= 0; k--) 
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 1; i < 4; i++)
+                {
+                    if (matrix[i][j] != 0)
+                    {
+                        for (int k = i - 1; k >= 0; k--)
                         {
-                            if (matrix[k][j] == 0) {
-                                matrix[k][j] = matrix[k+1][j];
-                                matrix[k+1][j] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int j = 0; j < 4; j++) {
-               
-                for (int i = 1; i < 4; i++) {
-                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0) {
-                       
-                        matrix[i-1][j] += matrix[i][j];
-                        points += (2 * matrix[i][j]);
-                        matrix[i][j] = 0;
-                        for (int k = i; k < 3; k++) {
-                            if (matrix[k][j] == 0) {
+                            if (matrix[k][j] == 0)
+                            {
+                                checksum++;
                                 matrix[k][j] = matrix[k + 1][j];
                                 matrix[k + 1][j] = 0;
                             }
                         }
                     }
                 }
-                
             }
-            
-           
+
+            for (int j = 0; j < 4; j++)
+            {
+
+                for (int i = 1; i < 4; i++)
+                {
+                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0)
+                    {
+                        checksum++;
+                        matrix[i - 1][j] += matrix[i][j];
+                        points += (2 * matrix[i][j]);
+                        matrix[i][j] = 0;
+                        for (int k = i; k < 3; k++)
+                        {
+                            if (matrix[k][j] == 0)
+                            {
+                                matrix[k][j] = matrix[k + 1][j];
+                                matrix[k + 1][j] = 0;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
             updatePoints();
-            generateNumberAfterMove();
+            if (checksum != 0)
+            {
+                generateNumberAfterMove();
+            }
         }
 
-        private void toDown() {
+        private void toDown()
+        {
+            int checksum = 0;
             if (gameOver())
             {
                 if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -673,7 +744,7 @@ namespace _2048
                 else
                     this.Close();
             }
-            
+
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -683,27 +754,34 @@ namespace _2048
                 else
                     this.Close();
             }
-            for (int j = 0; j < 4; j++) {
-                for (int i = 2; i >= 0; i--) {
-                    if (matrix[i][j] != 0) {
-                        for (int k = i + 1; k < 4; k++) {
-                            if (matrix[k][j] == 0) {
-                                matrix[k][j] = matrix[k-1][j];
-                                matrix[k - 1][j] = 0; 
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 2; i >= 0; i--)
+                {
+                    if (matrix[i][j] != 0)
+                    {
+                        for (int k = i + 1; k < 4; k++)
+                        {
+                            if (matrix[k][j] == 0)
+                            {
+                                checksum++;
+                                matrix[k][j] = matrix[k - 1][j];
+                                matrix[k - 1][j] = 0;
                             }
-                            
+
                         }
                     }
                 }
             }
 
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < 4; j++)
+            {
 
                 for (int i = 2; i >= 0; i--)
                 {
                     if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0)
                     {
-                       
+                        checksum++;
                         matrix[i + 1][j] += matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
@@ -716,22 +794,25 @@ namespace _2048
                             }
                         }
                     }
-                   
+
                 }
             }
-           
-           
+
+
             updatePoints();
-            generateNumberAfterMove(); 
+            if (checksum != 0)
+            {
+                generateNumberAfterMove();
+            }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        
 
-        protected override bool  ProcessCmdKey(ref Message msg, Keys keyData)
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             //capture up arrow key
             if (keyData == Keys.Up)
@@ -742,14 +823,14 @@ namespace _2048
             //capture down arrow key
             if (keyData == Keys.Down)
             {
-                
+
                 toDown();
                 return true;
             }
             //capture left arrow key
             if (keyData == Keys.Left)
             {
-                
+
                 toLeft();
                 showNumbers();
                 return true;
@@ -767,14 +848,15 @@ namespace _2048
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-           
-            if (e.KeyCode == Keys.Delete) {
+
+            if (e.KeyCode == Keys.Delete)
+            {
                 toRight();
                 //label1.Text = "True";
                 showNumbers();
             }
-                
-            
+
+
         }
 
         private void Form1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -786,20 +868,21 @@ namespace _2048
                     break;
                 case Keys.Up:
                     break;
-                   
+
             }
 
         }
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
+
             newGame();
         }
 
-        
 
-       
 
-        
+
+
+
     }
 }
