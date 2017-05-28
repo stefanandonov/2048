@@ -15,7 +15,7 @@ namespace _2048
         public bool[][] filled { set; get; }
         public List<Control> controls = new List<Control>();
         public int points;
-        public int moves=1;
+        
 
         
 
@@ -151,7 +151,7 @@ namespace _2048
         }
 
         private bool gameOver() {
-            bool flag = false;
+            bool flag = true;
                 for (int i = 0; i < 4; i++)
                 {                                //proveruva dali site plocki se ispolneti
                     for (int j = 0; j <4; j++)
@@ -162,11 +162,13 @@ namespace _2048
                             return flag;
                         }
                     }
-                } 
-             
-        if (flag)
-            if (moves != 0)
-                flag=false;
+                }
+                if (flag) //ako e ispolneta celata tabla 
+                {
+                    if (!checkMoves())
+                        flag = false;
+                }
+
             return flag;
         }
         public bool youWon()
@@ -192,6 +194,50 @@ namespace _2048
         private void updatePoints()
         {
             lbPoints.Text = points.ToString();
+        }
+        public bool checkMoves(){
+            bool flag = true;
+            for (int i = 0; i < 4; i++) { //proveruva za desno 
+                for (int j = 2; j >= 0; j--) {
+                    if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j + 1] != 0)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            { //proveruva za levo
+                for (int j = 1; j < 4; j++)
+                {
+                    if (matrix[i][j] == matrix[i][j - 1] && matrix[i][j - 1] != 0 && matrix[i][j] != 0)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+            for (int j = 0; j < 4; j++)
+            {  //proveruva za gore
+
+                for (int i = 1; i < 4; i++)
+                {
+                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+            for (int j = 0; j < 4; j++)
+            { //proveruva za dolu
+
+                for (int i = 2; i >= 0; i--)
+                {
+                    if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+          return flag;
         }
 
         private void showColor(Label lb, int number) {
@@ -375,7 +421,7 @@ namespace _2048
                     }
                     else
                     {
-                        label23.Text = "";
+                        label23.Text =" ";
                         showColor(label23, 0);
                     }
             }
@@ -428,7 +474,6 @@ namespace _2048
         }
 
         private void toRight() {
-
             if (gameOver())
             {
                 if (MessageBox.Show("GAME OVER", "Game over", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -470,7 +515,7 @@ namespace _2048
                 for (int j = 2; j >= 0; j--) {
                     if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j + 1] != 0)
                     {
-                        moves = 1;
+                       
                         matrix[i][j + 1] += matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
@@ -483,9 +528,11 @@ namespace _2048
                             }
                         }
                     }
-                    else moves = 0;
+                    
                 }
             }
+            
+            
             updatePoints();
             generateNumberAfterMove();   
         }
@@ -499,7 +546,7 @@ namespace _2048
                 }
                 else
                     this.Close();
-            } 
+            }
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!! ", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -527,7 +574,7 @@ namespace _2048
             for (int i = 0; i < 4; i++) { //proveruva za sumi
                 for (int j = 1; j < 4; j++) {
                     if (matrix[i][j]==matrix[i][j-1] && matrix[i][j-1]!=0 && matrix[i][j]!=0){
-                        moves = 1;
+                      
                         matrix[i][j-1]+=matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j]=0;
@@ -538,10 +585,10 @@ namespace _2048
                             }
                         }
                     }
-                    else moves = 0;
-
                 }
             }
+            
+           
             updatePoints();
             generateNumberAfterMove();  
         }
@@ -556,7 +603,7 @@ namespace _2048
                 else
                     this.Close();
             }
-            else moves = 0;
+         
             if (youWon())
             {
                 if (MessageBox.Show("YOU WON!!!", "You won", MessageBoxButtons.RetryCancel) == System.Windows.Forms.DialogResult.Retry)
@@ -584,7 +631,7 @@ namespace _2048
                
                 for (int i = 1; i < 4; i++) {
                     if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0) {
-                        moves=1;
+                       
                         matrix[i-1][j] += matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
@@ -595,10 +642,11 @@ namespace _2048
                             }
                         }
                     }
-                    else moves=0;
                 }
                 
             }
+            
+           
             updatePoints();
             generateNumberAfterMove();
         }
@@ -643,7 +691,7 @@ namespace _2048
                 {
                     if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0)
                     {
-                        moves = 1;
+                       
                         matrix[i + 1][j] += matrix[i][j];
                         points += (2 * matrix[i][j]);
                         matrix[i][j] = 0;
@@ -656,9 +704,11 @@ namespace _2048
                             }
                         }
                     }
-                    else moves = 0;
+                   
                 }
             }
+           
+           
             updatePoints();
             generateNumberAfterMove(); 
         }
@@ -731,7 +781,8 @@ namespace _2048
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            newGame();
+            
+                newGame();
         }
 
         
