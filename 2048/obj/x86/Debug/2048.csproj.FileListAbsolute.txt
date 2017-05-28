@@ -24,3 +24,11 @@ D:\2048\2048\obj\x86\Debug\2048.csprojResolveAssemblyReference.cache
 D:\2048\2048\obj\x86\Debug\_2048.Form1.resources
 D:\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
 D:\2048\2048\obj\x86\Debug\2048.csproj.GenerateResource.Cache
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.exe
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.pdb
+C:\Users\mijal\Documents\GitHub\2048\2048\bin\Debug\2048.exe
+C:\Users\mijal\Documents\GitHub\2048\2048\bin\Debug\2048.pdb
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.csprojResolveAssemblyReference.cache
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\_2048.Form1.resources
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
+C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.csproj.GenerateResource.Cache

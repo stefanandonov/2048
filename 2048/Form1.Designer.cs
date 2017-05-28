@@ -84,7 +84,7 @@
             this.btnNewGame.TabIndex = 2;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
-           this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click_1);
+            this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click_1);
             // 
             // panel1
             // 
@@ -298,7 +298,7 @@
             // 
             this.lbPoints.AutoSize = true;
             this.lbPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPoints.Location = new System.Drawing.Point(263, 24);
+            this.lbPoints.Location = new System.Drawing.Point(307, 24);
             this.lbPoints.Name = "lbPoints";
             this.lbPoints.Size = new System.Drawing.Size(65, 24);
             this.lbPoints.TabIndex = 5;
@@ -308,7 +308,7 @@
             // 
             this.lbBest.AutoSize = true;
             this.lbBest.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBest.Location = new System.Drawing.Point(361, 24);
+            this.lbBest.Location = new System.Drawing.Point(402, 24);
             this.lbBest.Name = "lbBest";
             this.lbBest.Size = new System.Drawing.Size(51, 24);
             this.lbBest.TabIndex = 7;
