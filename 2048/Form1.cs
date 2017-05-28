@@ -15,6 +15,7 @@ namespace _2048
         public bool[][] filled { set; get; }
         public List<Control> controls = new List<Control>();
         public int points;
+        public List<int> allpoints; 
         
 
         
@@ -22,9 +23,14 @@ namespace _2048
         public Form1()
         {
             InitializeComponent();
+            
+
+            //label00.Text = this.Controls.Count.ToString();
+            //label01.Text = this.Controls.ToString();
+            //label01.Text = matrix[0][1].ToString();
             /*
-            * Test primeri za 4 tipa na dvizenja:
-            */
+           * Test primeri za 4 tipa na dvizenja:
+           */
             //matrix[1][0] = 4;
             //matrix[1][1] = 2;
             //matrix[1][2] = 2;
@@ -37,21 +43,22 @@ namespace _2048
             panel1.BackColor = Color.FromArgb(118, 114, 103);
             //label01.BackColor = Color.FromArgb(205, 193, 179);
             lbPoints.BackColor = Color.FromArgb(118, 114, 103);
-            lbPoints.ForeColor = Color.White;
+            lbPoints.ForeColor = Color.FromArgb(254, 254, 254);
             lbPoints.Text = points.ToString();
-
-            //label00.Text = this.Controls.Count.ToString();
-            //label01.Text = this.Controls.ToString();
-            //label01.Text = matrix[0][1].ToString();
             newGame();
             
             
         }
         public void newGame()
         {
+           
+            allpoints.Add(points);
+            lbBest.Text = String.Format("Best:\n{0}", allpoints.Max());
+
             matrix = new int[4][];
             filled = new bool[4][];
             points = 0;
+            updatePoints();
 
             this.Focus();
 
@@ -67,7 +74,7 @@ namespace _2048
                 }
 
             }
-           
+
 
             List<Control> controls = new List<Control>();
 
@@ -82,11 +89,17 @@ namespace _2048
             foreach (Control c in controls)
             {
                 if (c.Name.StartsWith("label"))
+                {
                     c.BackColor = Color.FromArgb(205, 193, 179);
+                    c.Text = "";
+                }
+
             }
 
             generateStart();
+            updatePoints();
             showNumbers();
+
 
         }
 
@@ -199,7 +212,7 @@ namespace _2048
             bool flag = true;
             for (int i = 0; i < 4; i++) { //proveruva za desno 
                 for (int j = 2; j >= 0; j--) {
-                    if (matrix[i][j] == matrix[i][j + 1] && matrix[i][j] != 0 && matrix[i][j + 1] != 0)
+                    if (matrix[i][j] == matrix[i][j + 1])
                     {
                         flag = false;
                     }
@@ -209,7 +222,7 @@ namespace _2048
             { //proveruva za levo
                 for (int j = 1; j < 4; j++)
                 {
-                    if (matrix[i][j] == matrix[i][j - 1] && matrix[i][j - 1] != 0 && matrix[i][j] != 0)
+                    if (matrix[i][j] == matrix[i][j - 1])
                     {
                         flag = false;
                     }
@@ -220,7 +233,7 @@ namespace _2048
 
                 for (int i = 1; i < 4; i++)
                 {
-                    if (matrix[i][j] == matrix[i - 1][j] && matrix[i][j] != 0)
+                    if (matrix[i][j] == matrix[i - 1][j])
                     {
                         flag = false;
                     }
@@ -231,7 +244,7 @@ namespace _2048
 
                 for (int i = 2; i >= 0; i--)
                 {
-                    if (matrix[i][j] == matrix[i + 1][j] && matrix[i][j] != 0)
+                    if (matrix[i][j] == matrix[i + 1][j])
                     {
                         flag = false;
                     }
@@ -255,33 +268,33 @@ namespace _2048
                     break;
                 case 8: 
                     lb.BackColor = Color.FromArgb(242, 177, 121);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     break;
                 case 16:
                     lb.BackColor = Color.FromArgb(245, 149, 101);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
                     break;
                 case 32:
                     lb.BackColor = Color.FromArgb(245, 124, 95);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
                     break;
                 case 64:
                     lb.BackColor = Color.FromArgb(246, 93, 59);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
                     break;
                 case 128:
                     lb.BackColor = Color.FromArgb(236, 207, 113);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
                     lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 case 256:
                     lb.BackColor = Color.FromArgb(237, 204, 99);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);;
                     lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 case 512:
                     lb.BackColor = Color.FromArgb(237, 204, 99);
-                    lb.ForeColor = Color.White;
+                    lb.ForeColor = Color.FromArgb(254, 254, 254);
                     lb.Font = new Font("Arial", 22, FontStyle.Bold);
                     break;
                 default:
@@ -375,8 +388,8 @@ namespace _2048
                     }
                     else
                     {
-                        label12.Text = "";
-                        showColor(label12, 0);
+                        label13.Text = "";
+                        showColor(label13, 0);
                     }
             }
             else if (i == 2) {
@@ -576,7 +589,6 @@ namespace _2048
                     if (matrix[i][j]==matrix[i][j-1] && matrix[i][j-1]!=0 && matrix[i][j]!=0){
                       
                         matrix[i][j-1]+=matrix[i][j];
-                        points += (2 * matrix[i][j]);
                         matrix[i][j]=0;
                         for (int k = j; k < 3; k++) {
                             if (matrix[i][k] == 0) {
@@ -781,8 +793,7 @@ namespace _2048
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            
-                newGame();
+            newGame();
         }
 
         
