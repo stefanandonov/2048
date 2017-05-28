@@ -48,8 +48,9 @@
             this.label02 = new System.Windows.Forms.Label();
             this.label01 = new System.Windows.Forms.Label();
             this.label00 = new System.Windows.Forms.Label();
-            this.lbPoints = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lbPoints = new System.Windows.Forms.Label();
+            this.lbBest = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,14 +77,14 @@
             // 
             // btnNewGame
             // 
-            this.btnNewGame.Location = new System.Drawing.Point(317, 70);
+            this.btnNewGame.Location = new System.Drawing.Point(311, 80);
             this.btnNewGame.Margin = new System.Windows.Forms.Padding(0);
             this.btnNewGame.Name = "btnNewGame";
             this.btnNewGame.Size = new System.Drawing.Size(142, 37);
             this.btnNewGame.TabIndex = 2;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
-            this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
+           this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click_1);
             // 
             // panel1
             // 
@@ -284,24 +285,34 @@
             this.label00.TabIndex = 5;
             this.label00.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(74, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "False";
+            // 
             // lbPoints
             // 
             this.lbPoints.AutoSize = true;
             this.lbPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPoints.Location = new System.Drawing.Point(262, 24);
+            this.lbPoints.Location = new System.Drawing.Point(263, 24);
             this.lbPoints.Name = "lbPoints";
-            this.lbPoints.Size = new System.Drawing.Size(60, 24);
+            this.lbPoints.Size = new System.Drawing.Size(65, 24);
             this.lbPoints.TabIndex = 5;
-            this.lbPoints.Text = "label2";
+            this.lbPoints.Text = "Score:";
             // 
-            // label1
+            // lbBest
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(361, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
+            this.lbBest.AutoSize = true;
+            this.lbBest.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBest.Location = new System.Drawing.Point(361, 24);
+            this.lbBest.Name = "lbBest";
+            this.lbBest.Size = new System.Drawing.Size(51, 24);
+            this.lbBest.TabIndex = 7;
+            this.lbBest.Text = "Best:";
             // 
             // Form1
             // 
@@ -309,8 +320,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(484, 662);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbBest);
             this.Controls.Add(this.lbPoints);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnNewGame);
             this.Controls.Add(this.lbSubtitle);
@@ -350,8 +362,9 @@
         private System.Windows.Forms.Label label02;
         private System.Windows.Forms.Label label01;
         private System.Windows.Forms.Label label00;
-        private System.Windows.Forms.Label lbPoints;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbPoints;
+        private System.Windows.Forms.Label lbBest;
     }
 }
 

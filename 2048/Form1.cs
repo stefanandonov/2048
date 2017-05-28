@@ -873,11 +873,13 @@ namespace _2048
 
         }
 
-        private void btnNewGame_Click(object sender, EventArgs e)
+        private void btnNewGame_Click_1(object sender, EventArgs e)
         {
 
             newGame();
         }
+
+       
 
 
 

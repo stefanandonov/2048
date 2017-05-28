@@ -16,22 +16,11 @@ C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\_2
 C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
 C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\Stefan\documents\visual studio 2010\Projects\2048\2048\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.exe
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.pdb
-C:\Users\mijal\Documents\GitHub\2048\2048\bin\Debug\2048.exe
-C:\Users\mijal\Documents\GitHub\2048\2048\bin\Debug\2048.pdb
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.csprojResolveAssemblyReference.cache
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\_2048.Form1.resources
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
-C:\Users\mijal\Documents\GitHub\2048\2048\obj\x86\Debug\2048.csproj.GenerateResource.Cache
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\2048.exe
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\2048.pdb
-C:\Users\Stefan\Desktop\2048-master\2048\bin\Debug\2048.exe
-C:\Users\Stefan\Desktop\2048-master\2048\bin\Debug\2048.pdb
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\_2048.Form1.resources
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\_2048.Properties.Resources.resources
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\Users\Stefan\Desktop\2048-master\2048\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\mijal\Downloads\2048-master\2048-master\2048\obj\x86\Debug\2048.exe
-C:\Users\mijal\Downloads\2048-master\2048-master\2048\obj\x86\Debug\2048.pdb
+D:\2048\2048\obj\x86\Debug\2048.exe
+D:\2048\2048\obj\x86\Debug\2048.pdb
+D:\2048\2048\bin\Debug\2048.exe
+D:\2048\2048\bin\Debug\2048.pdb
+D:\2048\2048\obj\x86\Debug\2048.csprojResolveAssemblyReference.cache
+D:\2048\2048\obj\x86\Debug\_2048.Form1.resources
+D:\2048\2048\obj\x86\Debug\_2048.Properties.Resources.resources
+D:\2048\2048\obj\x86\Debug\2048.csproj.GenerateResource.Cache
